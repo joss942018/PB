@@ -1,0 +1,216 @@
+
+
+$primary: #3e3a71;
+$white: #fff;
+//$font-size-base: 0.8rem !default;
+
+$darkDisabled: #5e5e5e;
+//** Input floating
+$input-height-border: 0;
+$input-padding-x:                       .5rem;
+$input-padding-y:                       .5rem;
+$input-bg: transparent;
+$input-color:                           $primary;
+$input-box-shadow:                      none;
+$input-focus-border-color:              none;
+$input-disabled-bg:                     $darkDisabled;
+
+$input-placeholder-color:               $white;
+
+$form-floating-label-transform:          scale(.85) translateY(-2rem) translateX(.25rem);
+$form-floating-height:                   add(2.5rem, $input-height-border);
+//$form-floating-line-height:              2rem;
+$form-floating-padding-x:                $input-padding-x;
+$form-floating-padding-y:                $input-padding-y;
+$form-floating-input-padding-t:          .5rem;
+$form-floating-input-padding-b:          .5rem;
+$form-floating-label-opacity:            .90;
+$form-floating-transition:               opacity .1s ease-in-out, transform .1s ease-in-out;
+$form-floating-transition:               opacity .1s ease-in-out, transform .1s ease-in-out;
+$input-focus-color:                      $primary;
+
+$enable-rounded: true !default;
+
+// Then import Bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";
+.App {
+  text-align: center;
+}
+
+
+
+.bg-primario{
+  background-color: var(--color-primario);
+}
+
+.max-h-card-price{
+  max-height: 10rem;
+}
+
+.bg-poliza{
+  background: url("images/ilustration-initial.svg") no-repeat center;
+  min-height: 90vh;
+}
+
+.fs-big{
+  font-size: 16rem;
+}
+
+.fs-big-tittle{
+  font-size: 4rem;
+}
+
+.max-width-8{
+  max-width: 90rem;
+}
+
+.min-h-100{
+  min-height: 90vh;
+}
+
+.element {
+  background: url("images/Fondo_2.webp") no-repeat center;
+  background-size: cover;
+  //background: radial-gradient(ellipse at right bottom, #fdfeff 5%, $primary 25%, #e8e8e8 50%, $primary 100%);
+}
+
+.p-big{
+  padding-top: 210rem;
+  padding-left: 40rem;
+}
+
+.w-colum{
+  width: 50rem;
+}
+
+.m-w-login{
+  max-width: 23rem;
+}
+
+.w-6{
+  width: 1rem;
+}
+.h-6{
+  height: 1rem;
+}
+
+.form-select,.form-control{
+  border-left: none;
+  border-top: none;
+  border-bottom: 2px solid #3e3a71;
+  border-radius: 0;
+  border-right: none;
+}
+
+.form-select:focus,.form-control:focus{
+  border-left: none;
+  border-top: none;
+  border-bottom: 2px solid #3e3a71;
+  border-radius: 0;
+  border-right: none;
+}
+
+.img-initial{
+  background-size: cover;
+  background: url("images/fondo-initial.webp") no-repeat center;
+}
+
+.style-form{
+  background-color: rgba(255, 255, 255, 0.8);
+  //backdrop-filter: blur(1.5rem);
+}
+
+
+.ff-Poppins{
+  font-family: 'Poppins', sans-serif;
+}
+
+.App-logo {
+  height: 5vmin;
+  pointer-events: none;
+}
+
+.App-logo2 {
+  min-height: 12rem;
+
+}
+
+
+/*@media (prefers-reduced-motion: no-preference) {*/
+/*  .App-logo {*/
+/*    animation: App-logo-spin infinite 20s linear;*/
+/*  }*/
+/*}*/
+
+.App-header {
+  //background-color: #282c34;
+  background-color: var(--color-primario);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 992px){
+  .navbar-expand-lg .offcanvas {
+    flex-grow: inherit;
+  }
+}
+
+@media (max-width: 765px){
+  .text-mobile{
+    font-size: 1.8rem;
+  }
+  .mt-mobile{
+    margin-top: 0 !important;
+  }
+  .p-mobile-radio{
+    padding: 2.5rem !important;
+  }
+  .text-center-mobile{
+    text-align: center !important;
+  }
+}
+
+.min-width-login{
+  max-width: 25rem;
+}
+
+.text-hover:hover{
+  color: #8b85ee !important;
+  transition: all .5s;
+}
+
+.text-borde{
+  -webkit-text-stroke: .5px #fdfeff;
+  color: transparent;
+}
+
+.btn{
+  border-radius: 0;
+}
+
+.css-n7rtur-MuiPaper-root-MuiAppBar-root,.css-o5srbh-MuiPaper-root-MuiAppBar-root{
+  background-color: $primary !important;
+}
+
+.css-o69gx8-MuiCardMedia-root {
+  background-position: top !important;
+  object-fit: contain !important;
+}

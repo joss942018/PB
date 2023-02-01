@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "206bd21c-94b9-433d-844b-7dfdc235abb3",
+		"name": "PolizasBroker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JWTToken - Management",
+			"item": [
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"\",\"contrasena\":\"\",\"rol\":\"\",\"es_activo\":\"\",\"contrasena_confirmation\":\"\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEVServerURL}}/register",
+							"host": [
+								"{{DEVServerURL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.data.access_token;\r",
+									"postman.setEnvironmentVariable(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{DEVServerURL}}/refresh",
+							"host": [
+								"{{DEVServerURL}}"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{DEVServerURL}}/logout",
+							"host": [
+								"{{DEVServerURL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DEVServerURL}}/user-profile",
+							"host": [
+								"{{DEVServerURL}}"
+							],
+							"path": [
+								"user-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TokenGenerator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.data.access_token;\r",
+									"postman.setEnvironmentVariable(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"test2@email.com\",\r\n\"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DEVServerURL}}/login",
+							"host": [
+								"{{DEVServerURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/upload/image",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadimage.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/upload/file",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadfile.php"
+					]
+				}
+			},
+			"response": []
+		},
+    {"name": "Usuarios - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"email\":\"\",\"contrasena\":\"\",\"rol\":\"\",\"es_activo\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios"] } }, "response": [] }
+,{"name": "Usuarios - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"email\":\"\",\"contrasena\":\"\",\"rol\":\"\",\"es_activo\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios","${id}"] } }, "response": [] }
+,{"name": "Usuarios - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Usuarios - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios","${id}"] } }, "response": [] }
+,{"name": "Usuarios - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Usuarios - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"email\":\"\",\"contrasena\":\"\",\"rol\":\"\",\"es_activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuarios","${id}"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas","${id}"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas","${id}"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "TiposCaracteristicas - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["tipos_caracteristicas","${id}"] } }, "response": [] }
+,{"name": "Roles - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles"] } }, "response": [] }
+,{"name": "Roles - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles","${id}"] } }, "response": [] }
+,{"name": "Roles - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Roles - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles","${id}"] } }, "response": [] }
+,{"name": "Roles - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Roles - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["roles","${id}"] } }, "response": [] }
+,{"name": "Polizas - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"valor\":\"\",\"fecha_vigencia\":\"\",\"paquete_id\":\"\",\"auto_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas"] } }, "response": [] }
+,{"name": "Polizas - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"valor\":\"\",\"fecha_vigencia\":\"\",\"paquete_id\":\"\",\"auto_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas","${id}"] } }, "response": [] }
+,{"name": "Polizas - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Polizas - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas","${id}"] } }, "response": [] }
+,{"name": "Polizas - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Polizas - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"valor\":\"\",\"fecha_vigencia\":\"\",\"paquete_id\":\"\",\"auto_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["polizas","${id}"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"paquete_id\":\"\",\"caracteristica_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"paquete_id\":\"\",\"caracteristica_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica","${id}"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica","${id}"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "PaqueteCaracteristica - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"paquete_id\":\"\",\"caracteristica_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquete_caracteristica","${id}"] } }, "response": [] }
+,{"name": "Paquetes - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"descripcion\":\"\",\"aseguradora_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes"] } }, "response": [] }
+,{"name": "Paquetes - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"descripcion\":\"\",\"aseguradora_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes","${id}"] } }, "response": [] }
+,{"name": "Paquetes - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Paquetes - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes","${id}"] } }, "response": [] }
+,{"name": "Paquetes - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Paquetes - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"descripcion\":\"\",\"aseguradora_id\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["paquetes","${id}"] } }, "response": [] }
+,{"name": "ModelAo - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"año_id\":\"\",\"modelo_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año"] } }, "response": [] }
+,{"name": "ModelAo - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"año_id\":\"\",\"modelo_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año","${id}"] } }, "response": [] }
+,{"name": "ModelAo - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "ModelAo - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año","${id}"] } }, "response": [] }
+,{"name": "ModelAo - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "ModelAo - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"año_id\":\"\",\"modelo_id\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["model_año","${id}"] } }, "response": [] }
+,{"name": "Modelos - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos"] } }, "response": [] }
+,{"name": "Modelos - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos","${id}"] } }, "response": [] }
+,{"name": "Modelos - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Modelos - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos","${id}"] } }, "response": [] }
+,{"name": "Modelos - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Modelos - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["modelos","${id}"] } }, "response": [] }
+,{"name": "Marcas - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas"] } }, "response": [] }
+,{"name": "Marcas - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas","${id}"] } }, "response": [] }
+,{"name": "Marcas - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Marcas - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas","${id}"] } }, "response": [] }
+,{"name": "Marcas - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Marcas - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["marcas","${id}"] } }, "response": [] }
+,{"name": "HistoricosPagos - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"cuentacobrar_id\":\"\",\"observacion\":\"\",\"valor\":\"\",\"formapago_id\":\"\",\"imagen\":\"\",\"concepto\":\"\",\"fecha\":\"\",\"fecha_vencimiento\":\"\",\"num_factura\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos"] } }, "response": [] }
+,{"name": "HistoricosPagos - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"cuentacobrar_id\":\"\",\"observacion\":\"\",\"valor\":\"\",\"formapago_id\":\"\",\"imagen\":\"\",\"concepto\":\"\",\"fecha\":\"\",\"fecha_vencimiento\":\"\",\"num_factura\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos","${id}"] } }, "response": [] }
+,{"name": "HistoricosPagos - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "HistoricosPagos - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos","${id}"] } }, "response": [] }
+,{"name": "HistoricosPagos - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "HistoricosPagos - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"cuentacobrar_id\":\"\",\"observacion\":\"\",\"valor\":\"\",\"formapago_id\":\"\",\"imagen\":\"\",\"concepto\":\"\",\"fecha\":\"\",\"fecha_vencimiento\":\"\",\"num_factura\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["historicos_pagos","${id}"] } }, "response": [] }
+,{"name": "EstadosCivil - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil"] } }, "response": [] }
+,{"name": "EstadosCivil - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil","${id}"] } }, "response": [] }
+,{"name": "EstadosCivil - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "EstadosCivil - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil","${id}"] } }, "response": [] }
+,{"name": "EstadosCivil - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "EstadosCivil - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["estados_civil","${id}"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"concepto\":\"\",\"saldo\":\"\",\"cliente_id\":\"\",\"credito\":\"\",\"debito\":\"\",\"comprobante_id\":\"\",\"fecha_vencimiento\":\"\",\"fecha_emision\":\"\",\"status\":\"\",\"valor_comprobante\":\"\",\"comprobante_img\":\"\",\"fecha_comprobante\":\"\",\"num_factura\":\"\",\"paquete_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"concepto\":\"\",\"saldo\":\"\",\"cliente_id\":\"\",\"credito\":\"\",\"debito\":\"\",\"comprobante_id\":\"\",\"fecha_vencimiento\":\"\",\"fecha_emision\":\"\",\"status\":\"\",\"valor_comprobante\":\"\",\"comprobante_img\":\"\",\"fecha_comprobante\":\"\",\"num_factura\":\"\",\"paquete_id\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar","${id}"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar","${id}"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "CuentasPorCobrar - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"concepto\":\"\",\"saldo\":\"\",\"cliente_id\":\"\",\"credito\":\"\",\"debito\":\"\",\"comprobante_id\":\"\",\"fecha_vencimiento\":\"\",\"fecha_emision\":\"\",\"status\":\"\",\"valor_comprobante\":\"\",\"comprobante_img\":\"\",\"fecha_comprobante\":\"\",\"num_factura\":\"\",\"paquete_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuentas_por_cobrar","${id}"] } }, "response": [] }
+,{"name": "Clientes - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"identificacion\":\"\",\"celular\":\"\",\"nombres\":\"\",\"apellidos\":\"\",\"estado_civil_id\":\"\",\"ciudad_id\":\"\",\"edad\":\"\",\"genero\":\"\",\"terminos_condiciones\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes"] } }, "response": [] }
+,{"name": "Clientes - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"identificacion\":\"\",\"celular\":\"\",\"nombres\":\"\",\"apellidos\":\"\",\"estado_civil_id\":\"\",\"ciudad_id\":\"\",\"edad\":\"\",\"genero\":\"\",\"terminos_condiciones\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes","${id}"] } }, "response": [] }
+,{"name": "Clientes - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Clientes - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes","${id}"] } }, "response": [] }
+,{"name": "Clientes - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Clientes - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"identificacion\":\"\",\"celular\":\"\",\"nombres\":\"\",\"apellidos\":\"\",\"estado_civil_id\":\"\",\"ciudad_id\":\"\",\"edad\":\"\",\"genero\":\"\",\"terminos_condiciones\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["clientes","${id}"] } }, "response": [] }
+,{"name": "Ciudades - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"codigo\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades"] } }, "response": [] }
+,{"name": "Ciudades - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"codigo\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades","${id}"] } }, "response": [] }
+,{"name": "Ciudades - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Ciudades - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades","${id}"] } }, "response": [] }
+,{"name": "Ciudades - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Ciudades - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"codigo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["ciudades","${id}"] } }, "response": [] }
+,{"name": "Caracteristicas - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"tipo_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas"] } }, "response": [] }
+,{"name": "Caracteristicas - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"tipo_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas","${id}"] } }, "response": [] }
+,{"name": "Caracteristicas - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Caracteristicas - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas","${id}"] } }, "response": [] }
+,{"name": "Caracteristicas - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Caracteristicas - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"tipo_id\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["caracteristicas","${id}"] } }, "response": [] }
+,{"name": "Autos - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"marca_id\":\"\",\"modelo_id\":\"\",\"año_id\":\"\",\"cliente_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos"] } }, "response": [] }
+,{"name": "Autos - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"marca_id\":\"\",\"modelo_id\":\"\",\"año_id\":\"\",\"cliente_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos","${id}"] } }, "response": [] }
+,{"name": "Autos - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Autos - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos","${id}"] } }, "response": [] }
+,{"name": "Autos - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Autos - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id\":\"\",\"marca_id\":\"\",\"modelo_id\":\"\",\"año_id\":\"\",\"cliente_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["autos","${id}"] } }, "response": [] }
+,{"name": "Aseguradoras - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras"] } }, "response": [] }
+,{"name": "Aseguradoras - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras","${id}"] } }, "response": [] }
+,{"name": "Aseguradoras - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Aseguradoras - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras","${id}"] } }, "response": [] }
+,{"name": "Aseguradoras - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Aseguradoras - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["aseguradoras","${id}"] } }, "response": [] }
+,{"name": "Administradores - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"apellido\":\"\",\"usuario_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores"] } }, "response": [] }
+,{"name": "Administradores - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"apellido\":\"\",\"usuario_id\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores","${id}"] } }, "response": [] }
+,{"name": "Administradores - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Administradores - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores","${id}"] } }, "response": [] }
+,{"name": "Administradores - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Administradores - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"apellido\":\"\",\"usuario_id\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["administradores","${id}"] } }, "response": [] }
+,{"name": "Ao - Add", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"descripcion\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año"] } }, "response": [] }
+,{"name": "Ao - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "PUT", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"descripcion\":\"\",\"estado\":\"\",\"id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año","${id}"] } }, "response": [] }
+,{"name": "Ao - GetAll", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año","?page=1&paginator=100"] } }, "response": [] }
+,{"name": "Ao - GetById", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año","${id}"] } }, "response": [] }
+,{"name": "Ao - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año","search","${searchKey}","?page=1&paginator=30"] } }, "response": [] }
+,{"name": "Ao - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "DELETE", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"descripcion\":\"\",\"estado\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["año","${id}"] } }, "response": [] }
+
+  ],
+	"protocolProfileBehavior": {}
+}

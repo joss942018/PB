@@ -1,0 +1,20 @@
+export { Usuarios } from "./usuarios";
+export { Tipos_Caracteristicas } from "./tipos_caracteristicas";
+export { Roles } from "./roles";
+export { Polizas } from "./polizas";
+export { Paquete_Caracteristica } from "./paquete_caracteristica";
+export { Paquetes } from "./paquetes";
+export { Model_Año } from "./model_año";
+export { Modelos } from "./modelos";
+export { Marcas } from "./marcas";
+export { Historicos_Pagos } from "./historicos_pagos";
+export { Estados_Civil } from "./estados_civil";
+export { Cuentas_Por_Cobrar } from "./cuentas_por_cobrar";
+export { Clientes } from "./clientes";
+export { Ciudades } from "./ciudades";
+export { Caracteristicas } from "./caracteristicas";
+export { Autos } from "./autos";
+export { Aseguradoras } from "./aseguradoras";
+export { Administradores } from "./administradores";
+export { Año } from "./año";
+
